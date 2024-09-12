@@ -1,0 +1,22 @@
+## Grupo 4: Sistema de Otimização de Rotas e Logística
+
+**Integrantes**: Rafael Cândido, Luca Verdade, Lucas Fidalgo, Vinicius
+
+**Desafio:** Construir um sistema completo para modelar e resolver questões de logística e otimização de rotas de entrega. O sistema deve lidar com variáveis como distâncias, custos e capacidades dos veículos para oferecer soluções eficientes.
+
+### Requisitos:
+- Escolher o banco de dados adequado para modelar redes complexas de rotas e armazenar os dados de maneira eficiente.
+- Utilizar o Design Pattern **Command** para estruturar operações de planejamento de rotas, como adição, remoção e ajustes.
+- Aplicar o Pattern **Singleton** para gerenciar o algoritmo de otimização de forma centralizada e eficiente.
+- Propor um diagrama de classes UML que modele a lógica de rotas, custos e capacidades.
+- Criar um diagrama de casos de uso para demonstrar as interações do usuário com o sistema de planejamento de rotas.
+- Arquitetura com foco em **otimização de algoritmos**, **processamento eficiente** e suporte a grandes volumes de dados.
+
+---
+
+### Entregáveis:
+- Arquitetura completa do sistema (incluindo a escolha do banco de dados SQL/NoSQL).
+- Diagrama de Classes UML.
+- Diagrama de Sequência ou Casos de Uso (dependendo do desafio).
+- Justificativa para as escolhas de design patterns e SGBDs.
+- Data de Apresentação: **19/09/2024**
