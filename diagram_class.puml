@@ -1,0 +1,41 @@
+@startuml
+
+class Cliente {
+  +clienteID: int
+  +nome: String
+  +email: String
+  +senha: String
+  +plano: String
+  +dataNascimento: Date
+  +criarPerfil()
+  +removerPerfil()
+  +pesquisarFilme()
+  +assistirFilme()
+  +adicionarLista()
+  +avaliarConteudo()
+  +atualizarPlano()
+}
+
+class Filme {
+  +id: int
+  +título: String
+  +descrição: String
+  +anoLançamento: Date
+  +duracao: int
+  +genero: String
+  +classificacaoEtária: String
+  +avaliacao: float
+}
+
+class Pagamento {
+  +pagamentoID: int
+  +valor: float
+  +data: Date
+  +processarPagamento()
+}
+
+Conta --> Cliente : "associado a"
+Conta --> Filme : "para"
+Conta--> Pagamento : "associado a"
+
+@enduml
