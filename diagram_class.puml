@@ -1,41 +1,44 @@
 @startuml
 
-class Cliente {
-  +clienteID: int
-  +nome: String
-  +email: String
-  +senha: String
-  +plano: String
-  +dataNascimento: Date
-  +criarPerfil()
-  +removerPerfil()
-  +pesquisarFilme()
-  +assistirFilme()
-  +adicionarLista()
-  +avaliarConteudo()
-  +atualizarPlano()
-}
+class User {
+  +userID: int
+  +name: string
+  +email: string
+  +password: string
+  +tipo: string
+  +pesquisar_rota()
+  +cadastrar_rota()
+  +escolher_rota()
+  +iniciar_rota()
+  +cancelar_rota()
+  +finalizar_rota()
+  +editar_conta()
+  +excluir_conta()
+  +efetuar_login()
+  +efetuar_logout()
+  }
 
-class Filme {
-  +id: int
-  +título: String
-  +descrição: String
-  +anoLançamento: Date
-  +duracao: int
-  +genero: String
-  +classificacaoEtária: String
-  +avaliacao: float
-}
+  class Rota {
+    +rotaID: int
+    +origem: string
+    +destino: string
+    +distancia: float
+    +duracao: float
+    +tipo: string
+    +data: date
+    +hora: time
+  }
 
-class Pagamento {
-  +pagamentoID: int
-  +valor: float
-  +data: Date
-  +processarPagamento()
-}
+  class Veiculo {
+    +veiculoID: int
+    +placa: string
+    +marca: string
+    +modelo: string
+    +ano: int
+    +cor: string
+    +tipo: string
+  }
 
-Conta --> Cliente : "associado a"
-Conta --> Filme : "para"
-Conta--> Pagamento : "associado a"
 
+#emdesenvovlimento
 @enduml
