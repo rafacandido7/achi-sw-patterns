@@ -1,0 +1,79 @@
+# Arquitetura - Logistica de Entregas
+
+## Visão Geral
+
+Construir um sistema completo para modelar e resolver questões de logística e otimização de rotas de entrega. O sistema deve lidar com variáveis como distâncias, custos e capacidades dos veículos para oferecer soluções eficientes.
+
+## Estrutura da Arquitetura
+
+1. **Cliente (WEB/APP)**:
+   - Interface do usuário onde pode-se inserir informações de origem e pontos de entrega.
+   - O cliente se comunica com o API Gateway para enviar e receber dados.
+   - Essa interface também pode exibir mapas, possivelmente integrados com a Google Maps JavaScript API para visualização em tempo real da rota otimizada.
+
+2. **API Gateway**:
+   - Serve como o ponto de entrada para todas as requisições do cliente.
+   - Roteia as requisições para os microserviços apropriados, garantindo autenticação e autorização além de permitir uma comunicação centralizada e controle de acesso.
+
+3. **Microserviços**:
+   - **Microserviço de Posicionamento de Veículos**:
+     - Utiliza Kafka para receber e processar atualizações de localização de forma assíncrona.
+     - Responsável por atualizar a localização dos entregadores em tempo real.
+     - Armazena as localizações no Redis que serve como cache para armazenar as localizações mais recentes dos veículos, permitindo uma consulta muito rápida para atualização em tempo real no mapa ou para cálculos adicionais.
+     - Armazena as localizações no Neo4j e no MongoDb para maior persistência.
+        - Neo4j pode armazenar a rede de locais e rotas (grafo), o que facilita a consulta geoespacial para relacionamentos entre os pontos.
+        - MongoDB pode ser utilizado para armazenar dados de configurações ou histórico de entregas, dados que não precisam de relações complexas.
+
+   - **Microserviço de Geolocalização**:
+     - Armazena e consulta dados geoespaciais usando **Neo4j**.
+     - A modelagem de locais e rotas com o Neo4j se faz eficiente, especialmente quando há a necessidade de armazenar e consultar rotas como nós e arestas de um grafo.
+     - Gerencia as localizações (nós) e as distâncias/tempos de viagem (arestas, que seriam as distâncias) entre os pontos.
+     - Consulta a API do Google Maps para calcular distâncias e tempos de viagem e os armazena para otimização (Geocoding API, Distance Matrix).
+     - Terá comunicação com o Microserviço de Otimização de Rotas.
+
+   - **Microserviço de Otimização de Rotas**:
+     - Esse microserviço recebe as informações geoespaciais e calcula a rota mais eficiente. Dependendo da complexidade do cenário, ele pode lidar com:
+        - Capacidade dos veículos: Verificando se a rota escolhida atende às limitações de carga.
+        - Tempo estimado: Ajustando a rota com base no tráfego.
+     - Utiliza algoritmos (como Dijkstra ou TSP) para calcular a rota otimizada com base nos dados de distância e tempo.
+     - O Google Maps API pode fornecer dados iniciais (distância e tempo entre pontos), e o Neo4j pode armazenar essas informações para realizar consultas rápidas.
+     - Retorna a rota otimizada ao API Gateway.
+
+     Espelhar: https://www.youtube.com/watch?v=shJYTYVOmqE
+
+4. **Banco de Dados**:
+   - **Neo4j**: Armazena os dados de rotas, pontos de entrega e suas relações. Facilita consultas complexas sobre as distâncias e conexões entre os locais.
+   - **MongoDB**: Armazena dados de configuração, histórico de entregas e informações do usuário.
+   - **Redis**: Usado como cache para localizações e dados frequentemente acessados, melhorando a velocidade de consulta e reduzindo a carga no banco de dados principal.
+
+5. **API do Google Maps**:
+   - Utilizada para obter informações de trânsito em tempo real, distâncias e rotas entre os pontos de entrega.
+   - A API pode ser chamada pelo microserviço de geolocalização sempre que novos dados de localização ou rotas forem necessários.
+
+## Passo a Passo do Fluxo de Trabalho
+
+1. **Início da Entrega**:
+   - O entregador abre o aplicativo e insere sua localização inicial e os pontos de entrega.
+   - O aplicativo envia uma requisição ao API Gateway.
+
+2. **Processamento da Solicitação**:
+   - O API Gateway direciona a solicitação ao **Microserviço de Geolocalização**.
+   - O microserviço armazena as localizações no **Neo4j** e consulta a **API do Google Maps** para calcular as distâncias e tempos entre os pontos de entrega.
+
+3. **Otimização da Rota**:
+   - Após obter os dados necessários, o microserviço envia essas informações ao **Microserviço de Otimização de Rotas**.
+   - O microserviço calcula a melhor rota, considerando as distâncias e o tempo de viagem, e retorna a rota otimizada ao API Gateway.
+
+4. **Atualização em Tempo Real**:
+   - O entregador começa a rota e seu microserviço de posicionamento começa a monitorar sua localização.
+   - O microserviço armazena a localização atual no **Redis** para acesso rápido.
+
+6. **Finalização da Entrega**:
+   - Quando todas as entregas são concluídas, os dados da entrega são armazenados no **MongoDB** para referência futura.
+   - O sistema pode gerar relatórios ou análises de desempenho com base nesses dados.
+
+## Considerações Finais
+
+- Essa arquitetura é escalável e pode ser expandida para incluir mais funcionalidades, como análises de desempenho, previsão de demanda, e relatórios de entregas.
+- O uso de microserviços permite o desenvolvimento, teste e implante cada componente independentemente, facilitando a manutenção e a evolução do sistema ao longo do tempo.
+- A integração com o Google Maps oferece dados precisos e em tempo real, em conjunto com o Neo4j permite um gerenciamento eficiente de relacionamentos geoespaciais.

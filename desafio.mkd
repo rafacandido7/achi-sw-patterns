@@ -19,4 +19,4 @@
 - Diagrama de Classes UML.
 - Diagrama de Sequência ou Casos de Uso (dependendo do desafio).
 - Justificativa para as escolhas de design patterns e SGBDs.
-- Data de Apresentação: **19/09/2024**
+- Data de Apresentação: **19/09/2024**z

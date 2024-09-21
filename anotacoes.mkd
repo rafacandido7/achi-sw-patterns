@@ -1,0 +1,15 @@
+Routing requests
+When you request a route calculation, the request is sent to the Waze server. That route is then transmitted back to your client device and displayed.
+
+The requests for routing vary according to the settings you have chosen on your client device. Under Navigation you can choose:
+
+Fastest or shortest route
+Whether to allow or avoid toll roads
+Whether to allow dirt roads, never allow dirt roads, or to avoid long dirt roads
+Whether to avoid major highways
+The shortest route refers to physical distance. Most people usually prefer the Fastest route option; 100km of freeway is better than 90km of country roads.
+
+https://www.waze.com/wiki/UAE/Routing_server
+
+https://www.geeksforgeeks.org/classification-of-routing-algorithms/
+x
