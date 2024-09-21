@@ -1,0 +1,44 @@
+@startuml
+
+class User {
+  +userID: int
+  +name: string
+  +email: string
+  +password: string
+  +tipo: string
+  +pesquisar_rota()
+  +cadastrar_rota()
+  +escolher_rota()
+  +iniciar_rota()
+  +cancelar_rota()
+  +finalizar_rota()
+  +editar_conta()
+  +excluir_conta()
+  +efetuar_login()
+  +efetuar_logout()
+  }
+
+  class Rota {
+    +rotaID: int
+    +origem: string
+    +destino: string
+    +distancia: float
+    +duracao: float
+    +tipo: string
+    +data: date
+    +hora: time
+  }
+
+  class Veiculo {
+    +veiculoID: int
+    +placa: string
+    +marca: string
+    +modelo: string
+    +ano: int
+    +cor: string
+    +tipo: string
+  }
+
+
+#emdesenvovlimento
+@enduml
