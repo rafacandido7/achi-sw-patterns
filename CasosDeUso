@@ -1,0 +1,26 @@
+@startuml
+actor "Usuário" as U
+actor "Administrador" as A
+actor "Motorista" as M
+actor "Banco de Dados" as BD
+
+U --> (Criar Rota de Entrega)
+U --> (Ajustar Rota)
+U --> (Remover Rota)
+U --> (Visualizar Rotas e Custos)
+U --> (Gerar Relatório de Otimização)
+M --> (Consultar Rota Otimizada)
+M --> (Enviar Feedback da Rota)
+A --> (Configurar Parâmetros do Algoritmo)
+A --> (Gerenciar Veículos)
+
+package "Sistema de Otimização" {
+  (Otimizar Rota) --> (Criar Rota de Entrega)
+  (Otimizar Rota) --> (Ajustar Rota)
+  (Otimizar Rota) --> BD
+  (Enviar Feedback da Rota) --> (Otimizar Rota)
+}
+
+BD --> (Visualizar Rotas e Custos)
+BD --> (Gerar Relatório de Otimização)
+@enduml
