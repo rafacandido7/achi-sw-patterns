@@ -16,6 +16,8 @@ class User {
   +excluir_conta()
   +efetuar_login()
   +efetuar_logout()
+  +calcular_distancia()
+  +calcular_custo()
   }
 
   class Rota {
@@ -37,8 +39,12 @@ class User {
     +ano: int
     +cor: string
     +tipo: string
+    +capacidade: float
+    +custoperkm: float
   }
 
-
-#emdesenvovlimento
+  User "1" -- "N" Rota : "Escolhe"
+  User "1" -- "1" Veiculo : "Utiliza"
+  Rota "1" -- "N" Veiculo : "Utiliza"
+  
 @enduml
