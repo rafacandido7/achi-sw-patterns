@@ -1,9 +1,12 @@
+import os
 import requests
 import json
 from neo4j import GraphDatabase
+from dotenv import load_dotenv
 
-# Chave de API do GraphHopper (substitua pela sua)
-API_KEY = "d53067aa-9365-4a61-8d6c-6c4eabdbf551"
+load_dotenv()
+
+API_KEY = os.getenv("API_KEY")
 
 def obter_rota_openstreetmap(origem, destino):
     """

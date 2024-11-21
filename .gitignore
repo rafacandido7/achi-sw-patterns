@@ -1,2 +1,4 @@
 venv
 route-otimization.*
+__pycache__
+volumes

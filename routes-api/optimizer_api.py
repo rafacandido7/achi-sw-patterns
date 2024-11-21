@@ -1,7 +1,13 @@
+import os
 from flask import Flask, request, jsonify
 from optimizer_logic import calcular_rota_com_trafego, verificar_capacidade
 from routes import criar_rota
 from db import driver  # Importa o driver centralizado
+from dotenv import load_dotenv
+
+load_dotenv()
+
+API_PORT = os.getenv("API_PORT")
 
 app = Flask(__name__)
 
@@ -39,4 +45,4 @@ def calcular_rota():
         return jsonify({"erro": str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug=True, port=API_PORT)

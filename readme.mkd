@@ -5,6 +5,7 @@
 **Desafio:** Construir um sistema completo para modelar e resolver questões de logística e otimização de rotas de entrega. O sistema deve lidar com variáveis como distâncias, custos e capacidades dos veículos para oferecer soluções eficientes.
 
 ### Requisitos:
+
 - Escolher o banco de dados adequado para modelar redes complexas de rotas e armazenar os dados de maneira eficiente.
 - Utilizar o Design Pattern **Command** para estruturar operações de planejamento de rotas, como adição, remoção e ajustes.
 - Aplicar o Pattern **Singleton** para gerenciar o algoritmo de otimização de forma centralizada e eficiente.
@@ -15,8 +16,10 @@
 ---
 
 ### Entregáveis:
+
 - Arquitetura completa do sistema (incluindo a escolha do banco de dados SQL/NoSQL).
 - Diagrama de Classes UML.
 - Diagrama de Sequência ou Casos de Uso (dependendo do desafio).
 - Justificativa para as escolhas de design patterns e SGBDs.
 - Data de Apresentação: **19/09/2024**z
+  Link Repo: https://github.com/rafacandido7/achi-sw-patterns

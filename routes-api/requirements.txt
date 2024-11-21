@@ -1,0 +1,4 @@
+requests
+neo4j
+Flask
+python-dotenv
