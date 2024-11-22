@@ -1,0 +1,6 @@
+fastapi
+pika
+python-dotenv
+uvicorn
+datetime
+python-multipart

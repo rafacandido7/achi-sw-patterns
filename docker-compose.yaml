@@ -67,7 +67,7 @@ services:
       - ./volumes/neo4j_logs:/logs
 
   rabbitmq:
-    image: rabbitmq
+    image: rabbitmq:management
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
@@ -96,10 +96,36 @@ services:
       context: ./routes-api
       dockerfile: Dockerfile
     container_name: routes-api
-    ports:
-      - "${ROUTES_API_PORT}:80"
+    # ports:
+    #   - "${ROUTES_API_PORT}:80"
     depends_on:
       - neo4j
+    networks:
+      - kong-net
+
+  publisher-service:
+    build:
+      context: ./publisher-service
+      dockerfile: Dockerfile
+    container_name: publisher-service
+    # ports:
+    #   - "${PUBLISHER_SERVICE_PORT}:80"
+    volumes:
+      - ./wait-for-it.sh:/wait-for-it.sh
+    command:
+      [
+        "/wait-for-it.sh",
+        "rabbitmq:${RABBITMQ_HOST_AMQP_PORT}",
+        "--",
+        "uvicorn",
+        "app.main:app",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "80",
+      ]
+    depends_on:
+      - rabbitmq
     networks:
       - kong-net
 
