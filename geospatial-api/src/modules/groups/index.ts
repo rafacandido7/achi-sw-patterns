@@ -1,0 +1,5 @@
+export * from './groups.module'
+export * from './groups.service'
+export * from './groups.repository'
+export * from './schemas/groups.schema'
+export * from './dto'

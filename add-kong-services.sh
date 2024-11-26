@@ -70,7 +70,7 @@ create_route() {
 }
 
 auto_register_services() {
-  services=("publisher-service" "routes-api")
+  services=("publisher-service" "routes-api" "geospatial-api")
 
   for service in "${services[@]}"; do
     service_url="http://$service:80"
