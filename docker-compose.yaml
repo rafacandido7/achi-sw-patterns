@@ -153,6 +153,17 @@ services:
     networks:
       - kong-net
 
+  consumer-service:
+    build:
+      context: ./consumer-service
+      dockerfile: Dockerfile
+    container_name: consumer-service
+    depends_on:
+      - mongodb
+      - rabbitmq
+    networks:
+      - kong-net
+
 volumes:
   kong_data:
   neo4j_data:
